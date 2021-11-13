@@ -1,6 +1,6 @@
-use dotenv;
 use character_creator::GameMaster;
 use character_creator::Knowledge;
+use dotenv;
 use std::collections::HashMap;
 use std::error::Error;
 use std::fs::File;
@@ -11,15 +11,23 @@ use std::io::{self};
 
 fn main() -> Result<(), Box<dyn Error>> {
     let knowledge = reify_knowledge()?;
+    let speech = get_speech_json(dotenv::var("SPEECH_JSON_PATH").unwrap())?;
+
     let bob = GameMaster {
-        knowledge: knowledge,
+        knowledge,
+        speech
     };
+    
     bob.welcome();
-    bob.introduce_races();
+
+    bob.introduce_part(String::from("races"));
+    let user_input = await_user_input()?;
+    // bob.evaluate(user_input);
+
+    // bob.introduce_part(String::from("classes"));
 
     // let user_input = await_user_input()?;
-
-    // bob.evaluate(user_input);
+    
 
     // println!("{}", user_input);
 
@@ -45,10 +53,18 @@ fn get_knowledge_json(path: String, knowledge_type: &str) -> Result<Knowledge, B
     let knowledge = match knowledge_type {
         "races" => Knowledge::Races(serde_json::from_reader(reader)?),
         "classes" => Knowledge::Classes(serde_json::from_reader(reader)?),
-        _ => Knowledge::None
+        _ => Knowledge::None,
     };
 
     Ok(knowledge)
+}
+
+fn get_speech_json(path:String) -> Result<HashMap<String, String>, Box<dyn Error>> {
+    let file = File::open(path)?;
+    let reader = BufReader::new(file);
+    let speech : HashMap<String, String> = serde_json::from_reader(reader)?;
+    
+    Ok(speech)
 }
 
 fn await_user_input() -> Result<String, Box<dyn Error>> {

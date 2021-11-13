@@ -3,22 +3,28 @@ use std::collections::HashMap;
 
 pub struct GameMaster {
   pub knowledge: HashMap<String, Knowledge>,
+  pub speech: HashMap<String, String>,
 }
 
 impl GameMaster {
   pub fn welcome(&self) {
-    println!("\n");
-    println!("Bonjour !");
-    println!("\n");
+    println!("{}", &self.speech["welcome"]);
   }
 
-  pub fn introduce_races(&self) {
-    println!("Quelle race souhaitez-vous incarner?");
-    println!("\n");
+  pub fn introduce_part(&self, part_name: String) {
+    println!("{}", &self.speech[&part_name]);
 
-    if let Knowledge::Races(races) = &self.knowledge["races"] {
+    if let Knowledge::Races(races) = &self.knowledge[&part_name] {
+      let mut races = races.to_vec();
+      races.sort_by_key(|x| x.id);
       for race in races {
-        println!("{}: {}", race.id, race.name) 
+        println!("{}: {}", race.id, race.name)
+      }
+    } else if let Knowledge::Classes(classes) = &self.knowledge[&part_name] {
+      let mut classes = classes.to_vec();
+      classes.sort_by_key(|x| x.id);
+      for classe in classes {
+        println!("{}: {}", classe.id, classe.name)
       }
     }
   }
@@ -46,7 +52,7 @@ pub trait Knowable {
   fn test(&self);
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Race {
   id: u64,
   name: String,
@@ -62,7 +68,7 @@ impl Knowable for Race {
   }
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Classe {
   id: u64,
   name: String,
@@ -78,7 +84,7 @@ impl Knowable for Classe {
   }
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 struct CharacterModifiers {
   ability: HashMap<String, i64>,
   proficiency: HashMap<String, Vec<String>>,

@@ -1,6 +1,6 @@
 [
   {
-    "id": 1,
+    "id": 2,
     "name": "Guerrier",
     "bonuses": {
       "ability": {
@@ -17,7 +17,7 @@
     }
   },
   {
-    "id": 2,
+    "id": 1,
     "name": "Mage",
     "bonuses": {
       "ability": {

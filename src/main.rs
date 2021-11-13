@@ -1,11 +1,8 @@
-// use character_creator::GameMaster;
-use character_creator::Classe;
-use character_creator::Knowable;
-use character_creator::Race;
+use dotenv;
+use character_creator::GameMaster;
 use character_creator::Knowledge;
 use std::collections::HashMap;
 use std::error::Error;
-// use std::fs;
 use std::fs::File;
 use std::io::BufReader;
 use std::io::{self};
@@ -14,11 +11,11 @@ use std::io::{self};
 
 fn main() -> Result<(), Box<dyn Error>> {
     let knowledge = reify_knowledge()?;
-    // let bob = GameMaster {
-    //     knowledge: knowledge,
-    // };
-    // bob.welcome();
-    // bob.introduce_races();
+    let bob = GameMaster {
+        knowledge: knowledge,
+    };
+    bob.welcome();
+    bob.introduce_races();
 
     // let user_input = await_user_input()?;
 
@@ -30,8 +27,8 @@ fn main() -> Result<(), Box<dyn Error>> {
 }
 
 fn reify_knowledge() -> Result<HashMap<String, Knowledge>, Box<dyn Error>> {
-    let races = get_knowledge_json("./storage/dnd/races.json", "races")?;
-    let classes = get_knowledge_json("./storage/dnd/classes.json", "classes")?;
+    let races = get_knowledge_json(dotenv::var("RACES_JSON_PATH").unwrap(), "races")?;
+    let classes = get_knowledge_json(dotenv::var("CLASSES_JSON_PATH").unwrap(), "classes")?;
 
     let mut knowledge: HashMap<String, Knowledge> = HashMap::new();
 
@@ -41,13 +38,13 @@ fn reify_knowledge() -> Result<HashMap<String, Knowledge>, Box<dyn Error>> {
     Ok(knowledge)
 }
 
-fn get_knowledge_json(path: &str, knowledge_type: &str) -> Result<Knowledge, Box<dyn Error>> {
+fn get_knowledge_json(path: String, knowledge_type: &str) -> Result<Knowledge, Box<dyn Error>> {
     let file = File::open(path)?;
     let reader = BufReader::new(file);
 
     let knowledge = match knowledge_type {
-        "races" => Knowledge::Race(serde_json::from_reader(reader)?),
-        "classes" => Knowledge::Classe(serde_json::from_reader(reader)?),
+        "races" => Knowledge::Races(serde_json::from_reader(reader)?),
+        "classes" => Knowledge::Classes(serde_json::from_reader(reader)?),
         _ => Knowledge::None
     };
 

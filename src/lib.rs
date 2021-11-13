@@ -2,7 +2,7 @@ use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
 pub struct GameMaster {
-  pub knowledge: HashMap<String, Box<dyn Knowable>>,
+  pub knowledge: HashMap<String, Knowledge>,
 }
 
 impl GameMaster {
@@ -13,12 +13,14 @@ impl GameMaster {
   }
 
   pub fn introduce_races(&self) {
-    // println!("Quelle race souhaitez-vous incarner?");
-    // println!("\n");
+    println!("Quelle race souhaitez-vous incarner?");
+    println!("\n");
 
-    // for race in &self.knowledge["races"] {
-    //   println!("{}: {}", race["id"], race["name"]);
-    // }
+    if let Knowledge::Races(races) = &self.knowledge["races"] {
+      for race in races {
+        println!("{}: {}", race.id, race.name) 
+      }
+    }
   }
 
   pub fn evaluate(&self, user_input: String) {
@@ -34,9 +36,9 @@ impl GameMaster {
 
 #[derive(Debug)]
 pub enum Knowledge {
-    Race(Vec<Box<Race>>),
-    Classe(Vec<Box<Classe>>),
-    None
+  Races(Vec<Box<Race>>),
+  Classes(Vec<Box<Classe>>),
+  None,
 }
 
 pub trait Knowable {

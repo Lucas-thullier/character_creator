@@ -1,0 +1,20 @@
+{
+  "id": 2,
+  "name": "Guerrier",
+  "bonuses": {
+    "ability": {
+      "dexterity": 2
+    },
+    "proficiency": {
+      "weapons": [],
+      "armors": [],
+      "tools": [],
+      "languages": [],
+      "saving_throw": [],
+      "skills": ["Perception"]
+    },
+    "features": [],
+    "spells": [],
+    "movespeed": 9
+  }
+}

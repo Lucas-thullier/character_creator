@@ -1,0 +1,36 @@
+[
+  {
+    "id": 1,
+    "name": "Halfelin",
+    "bonuses": {
+      "ability": {
+        "dexterity": 2
+      },
+      "proficiency": {
+        "weapons": [],
+        "skills": ["Perception"],
+        "languages": []
+      },
+      "features": [],
+      "spells": [],
+      "movespeed": 9
+    }
+  },
+  {
+    "id": 2,
+    "name": "Elfe",
+    "bonuses": {
+      "ability": {
+        "dexterity": 2
+      },
+      "proficiency": {
+        "weapons": [],
+        "skills": ["Perception"],
+        "languages": []
+      },
+      "features": [],
+      "spells": [],
+      "movespeed": 9
+    }
+  }
+]

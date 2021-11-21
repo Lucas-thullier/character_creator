@@ -61,6 +61,9 @@ fn get_knowledge_json(
             knowledge.push(classe as Box<dyn lib::knowledge::Knowable>);
         }
     }
+
+    knowledge.sort_by_key(|x| *x.get_id());
+
     Ok(knowledge)
 }
 
@@ -68,6 +71,7 @@ fn get_speech_json(path: String) -> Result<HashMap<String, String>, Box<dyn Erro
     let file = File::open(path)?;
     let reader = BufReader::new(file);
     let speech: HashMap<String, String> = serde_json::from_reader(reader)?;
+
     Ok(speech)
 }
 

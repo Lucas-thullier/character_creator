@@ -12,7 +12,7 @@ pub trait Knowable: std::fmt::Debug {
 pub struct Race {
   pub id: u64,
   pub name: String,
-  // bonuses: CharacterModifiers,
+  bonuses: CharacterModifiers,
 }
 
 impl Knowable for Race {
@@ -29,7 +29,7 @@ impl Knowable for Race {
 pub struct Classe {
   pub id: u64,
   pub name: String,
-  // bonuses: CharacterModifiers,
+  bonuses: CharacterModifiers,
 }
 
 impl Knowable for Classe {

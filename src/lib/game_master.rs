@@ -14,10 +14,10 @@ impl GameMaster {
   pub fn introduce_part(&self, part_name: String) {
     println!("{}", &self.speech[&part_name]);
 
-    let races = &self.knowledges[&part_name];
+    let knowledges = &self.knowledges[&part_name];
     // races.sort_by_key(|x| x.get_id());
-    for race in races {
-      println!("{}: {}", race.get_id(), race.get_name())
+    for knowledge in knowledges {
+      println!("{}: {}", knowledge.get_id(), knowledge.get_name())
     }
   }
   pub fn evaluate(&self, user_input: String) {

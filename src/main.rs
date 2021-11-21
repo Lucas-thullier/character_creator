@@ -15,7 +15,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         knowledges,
         speech,
         actual_creation_step: "races".to_owned(),
-        actual_character: lib::knowledge::Character::new(),
+        actual_character: lib::knowledge::Character::default(),
     };
 
     bob.welcome();
@@ -23,7 +23,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         bob.introduce_part();
         let user_input = await_user_input()?;
         bob.evaluate(user_input);
-        println!("{:?}", &bob.actual_character);
+        // println!("{:?}", &bob.actual_character);
     }
 
     bob.goodbye();

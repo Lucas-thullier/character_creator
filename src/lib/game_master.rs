@@ -2,6 +2,7 @@ use super::knowledge::Character;
 use super::knowledge::Encyclopedia;
 use std::collections::HashMap;
 
+#[derive(Debug)]
 pub struct GameMaster {
   pub knowledges: Encyclopedia,
   pub speech: HashMap<String, String>,
@@ -32,7 +33,12 @@ impl GameMaster {
       let knowable = &knowledge_vec[user_input];
 
       let knowable_name = knowable.get_name().to_string();
+
+      // let character_modifiers = Box::new(knowable.downcast.get_modifiers());
+      
+      knowable.get_modifiers().apply_modifiers(&mut self.actual_character);
       self.set_appropriate_field(knowable_name);
+      dbg!(&self.actual_character);
     }
 
     self.determine_actual_step();
@@ -56,7 +62,7 @@ impl GameMaster {
 
   fn set_appropriate_field(&mut self, knowable_name: String) {
     if self.actual_creation_step == "races".to_owned() {
-      self.actual_character.set_race(knowable_name)
+      self.actual_character.set_race(knowable_name);
     } else if self.actual_creation_step == "classes".to_owned() {
       self.actual_character.set_class(knowable_name)
     } else if self.actual_creation_step == "backgrounds".to_owned() {

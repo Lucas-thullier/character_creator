@@ -11,17 +11,16 @@ fn main() -> Result<(), Box<dyn Error>> {
     let knowledges = reify_knowledge()?;
     let speech = get_speech_json(dotenv::var("SPEECH_JSON_PATH").unwrap())?;
 
-    let bob = lib::game_master::GameMaster {
+    let mut bob = lib::game_master::GameMaster {
         knowledges,
         speech,
         actual_creation_step: "races".to_owned(),
+        actual_character: lib::knowledge::Character::new(),
     };
 
-    let parts: [String; 2] = ["races".to_owned(), "classes".to_owned()];
-
     bob.welcome();
-    for part in parts {
-        bob.introduce_part(part);
+    while !bob.actual_character.is_complete() {
+        bob.introduce_part();
         let user_input = await_user_input()?;
         bob.evaluate(user_input);
     }
@@ -33,11 +32,14 @@ fn main() -> Result<(), Box<dyn Error>> {
 fn reify_knowledge() -> Result<lib::knowledge::Encyclopedia, Box<dyn Error>> {
     let races = get_knowledge_json(dotenv::var("RACES_JSON_PATH").unwrap(), "races")?;
     let classes = get_knowledge_json(dotenv::var("CLASSES_JSON_PATH").unwrap(), "classes")?;
+    let backgrounds =
+        get_knowledge_json(dotenv::var("BACKGROUNDS_JSON_PATH").unwrap(), "backgrounds")?;
 
     let mut knowledges: lib::knowledge::Encyclopedia = lib::knowledge::Encyclopedia::new();
 
     knowledges.insert(String::from("races"), races);
     knowledges.insert(String::from("classes"), classes);
+    knowledges.insert(String::from("backgrounds"), backgrounds);
 
     Ok(knowledges)
 }
@@ -59,6 +61,11 @@ fn get_knowledge_json(
         let classes: Vec<Box<lib::knowledge::Classe>> = serde_json::from_reader(reader)?;
         for classe in classes.into_iter() {
             knowledge.push(classe as Box<dyn lib::knowledge::Knowable>);
+        }
+    } else if knowledge_type == "backgrounds" {
+        let backgrounds: Vec<Box<lib::knowledge::Background>> = serde_json::from_reader(reader)?;
+        for background in backgrounds.into_iter() {
+            knowledge.push(background as Box<dyn lib::knowledge::Knowable>);
         }
     }
 

@@ -12,7 +12,7 @@ pub trait Knowable: std::fmt::Debug {
 pub struct Race {
   pub id: u64,
   pub name: String,
-  bonuses: CharacterModifiers,
+  bonuses: RaceModifiers,
 }
 
 impl Knowable for Race {
@@ -29,7 +29,7 @@ impl Knowable for Race {
 pub struct Classe {
   pub id: u64,
   pub name: String,
-  bonuses: CharacterModifiers,
+  bonuses: ClassModifiers,
 }
 
 impl Knowable for Classe {
@@ -42,12 +42,11 @@ impl Knowable for Classe {
   }
 }
 
-
 #[derive(Deserialize, Debug)]
 pub struct Background {
   pub id: u64,
   pub name: String,
-  bonuses: CharacterModifiers,
+  bonuses: BackgroundModifiers,
 }
 
 impl Knowable for Background {
@@ -60,13 +59,34 @@ impl Knowable for Background {
   }
 }
 
+// trait CharacterModifiers {
+//   pub fn 
+// }
+
 #[derive(Deserialize, Debug)]
-struct CharacterModifiers {
-  ability: HashMap<String, i64>,
-  proficiency: HashMap<String, Vec<String>>,
+struct RaceModifiers {
+  abilities: HashMap<String, i64>,
+  proficiencies: HashMap<String, Vec<String>>,
   features: Vec<String>,
   spells: Vec<String>,
   movespeed: i64,
+}
+
+#[derive(Deserialize, Debug)]
+struct ClassModifiers {
+  hit_dice: String,
+  hit_points: String,
+  proficiencies: HashMap<String, Vec<String>>,
+  equipments: HashMap<String, Vec<String>>,
+  spells: Vec<String>,
+  features: Vec<String>,
+}
+
+#[derive(Deserialize, Debug)]
+struct BackgroundModifiers {
+  proficiencies: HashMap<String, Vec<String>>,
+  equipments: HashMap<String, Vec<String>>,
+  features: Vec<String>,
 }
 
 #[derive(Default, Debug)]
@@ -79,7 +99,7 @@ pub struct Character {
   pub race: String,
   pub level: u64,
   pub experience: u64,
-  pub ability: Vec<Ability>,
+  pub abilities: Vec<Ability>,
   pub skills: Vec<Skill>,
   pub armor_class: ArmorClass,
   pub speed: u64,
@@ -112,6 +132,10 @@ impl Character {
       false
     }
   }
+
+  // pub fn apply_build_block(&self, character_modifiers: CharacterModifiers) {
+    // character_modifiers.ability.iter()
+  // }
 }
 
 #[derive(Default, Debug)]

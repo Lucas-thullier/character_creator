@@ -1,36 +1,70 @@
 [
   {
     "id": 2,
-    "name": "Guerrier",
+    "name": "fighter",
     "bonuses": {
-      "ability": {
-        "dexterity": 2
-      },
-      "proficiency": {
-        "weapons": [],
-        "skills": ["Perception"],
+      "hit_dice": "1d10*lvl",
+      "hit_points": "10+constitution_modifier",
+      "proficiencies": {
+        "weapons": ["simple weapons", "martial weapons"],
+        "armors": ["all", "shields"],
+        "skills": [
+          "acrobatics",
+          "animal handling",
+          "athletics",
+          "history",
+          "insight",
+          "intimidation",
+          "perception",
+          "survival"
+        ],
+        "tools": [],
+        "saving_throws": ["strength", "constitution"],
         "languages": []
       },
-      "features": [],
-      "spells": [],
-      "movespeed": 9
+      "equipments": {
+        "choice_1": ["chain mail", "leather armor"],
+        "choice_2": ["martial weapon and shield", "two martial weapons"],
+        "choice_3": ["light crossbow and 20 bolts", "two handaxes"],
+        "choice_4": ["dungeoneer's pack", "explorer's pack"],
+        "no_choice": ["longbow", "20 arrows"]
+      },
+      "features": ["fighting style", "second wind"],
+      "spells": []
     }
   },
   {
     "id": 1,
     "name": "Mage",
     "bonuses": {
-      "ability": {
-        "dexterity": 2
-      },
-      "proficiency": {
-        "weapons": [],
-        "skills": ["Perception"],
+      "hit_dice": "1d10*lvl",
+      "hit_points": "10+constitution_modifier",
+      "proficiencies": {
+        "weapons": ["simple weapons", "martial weapons"],
+        "armors": ["all", "shields"],
+        "skills": [
+          "acrobatics",
+          "animal handling",
+          "athletics",
+          "history",
+          "insight",
+          "intimidation",
+          "perception",
+          "survival"
+        ],
+        "tools": [],
+        "saving_throws": ["strength", "constitution"],
         "languages": []
       },
-      "features": [],
-      "spells": [],
-      "movespeed": 9
+      "equipments": {
+        "choice_1": ["chain mail", "leather armor"],
+        "choice_2": ["martial weapon and shield", "two martial weapons"],
+        "choice_3": ["light crossbow and 20 bolts", "two handaxes"],
+        "choice_4": ["dungeoneer's pack", "explorer's pack"],
+        "no_choice": ["longbow", "20 arrows"]
+      },
+      "features": ["fighting style", "second wind"],
+      "spells": []
     }
   }
 ]

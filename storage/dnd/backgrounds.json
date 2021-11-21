@@ -1,36 +1,48 @@
 [
   {
     "id": 2,
-    "name": "Soldat",
+    "name": "soldat",
     "bonuses": {
-      "ability": {
-        "dexterity": 2
-      },
-      "proficiency": {
+      "proficiencies": {
         "weapons": [],
-        "skills": ["Perception"],
-        "languages": []
+        "skills": ["athletics", "intimidation"],
+        "languages": [],
+        "tools": ["one type of gaming set", "vehicle"]
       },
-      "features": [],
-      "spells": [],
-      "movespeed": 9
+      "equipments": {
+        "no_choice": [
+          "insignia of rank",
+          "a trophy taken from a fallen enemy",
+          "set of bone dice",
+          "deck of cards",
+          "set of common clothes",
+          "10 golds"
+        ]
+      },
+      "features": ["military rank"]
     }
   },
   {
     "id": 1,
-    "name": "Ermite",
+    "name": "ermite",
     "bonuses": {
-      "ability": {
-        "dexterity": 2
-      },
-      "proficiency": {
+      "proficiencies": {
         "weapons": [],
-        "skills": ["Perception"],
-        "languages": []
+        "skills": ["athletics", "intimidation"],
+        "languages": [],
+        "tools": ["one type of gaming set", "vehicle"]
       },
-      "features": [],
-      "spells": [],
-      "movespeed": 9
+      "equipments": {
+        "no_choice": [
+          "insignia of rank",
+          "a trophy taken from a fallen enemy",
+          "set of bone dice",
+          "deck of cards",
+          "set of common clothes",
+          "10 golds"
+        ]
+      },
+      "features": ["military rank"]
     }
   }
 ]

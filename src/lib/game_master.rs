@@ -33,8 +33,6 @@ impl GameMaster {
 
       let knowable_name = knowable.get_name().to_string();
       self.set_appropriate_field(knowable_name);
-
-      println!("{:?}", self.actual_character);
     }
 
     self.determine_actual_step();

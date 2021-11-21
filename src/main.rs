@@ -23,7 +23,9 @@ fn main() -> Result<(), Box<dyn Error>> {
         bob.introduce_part();
         let user_input = await_user_input()?;
         bob.evaluate(user_input);
+        println!("{:?}", &bob.actual_character);
     }
+
     bob.goodbye();
 
     Ok(())
